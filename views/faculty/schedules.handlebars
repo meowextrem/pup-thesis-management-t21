@@ -1,0 +1,146 @@
+<div class="container-fluid">
+  <div class="rows" >
+    <div class="col-md-11">
+      <h3>Defense Schedules</h3>
+      <form action="/faculty/schedules" method="post">
+        <div class="form-inline" style="margin-bottom: 10px">
+          <label>Search by Title: </label>
+          <input type="text" name="titleQuery" class="form-control" value="{{titleQuery}}">
+          <button type="submit" name="search" value="search"><span class=" glyphicon glyphicon-search" style=""></span></button>
+        </div>
+        <div class="form-inline" style="margin-bottom: 10px">
+          <label>Year: </label>
+          <select class="form-control" name="year" id="year">
+            {{#each years}}
+              <option value="{{this.year}}">{{this.year}}</option>
+            {{/each}}
+          </select>
+        </div>
+        <div class="form-inline">
+          <input type="submit" name="clearSearch" value="Reset Search" class="btn">
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <div class="rows">
+    <div class="col-md-offset-10 col-md-1">
+      <div class="pagination" style="font-size: 1.3em;">
+        {{#paginate pagination type="previous"}}
+          <input type="hidden" value="&p={{n}}" id="previousN" name="">
+          <a {{#if disabled}}class="disabled"{{/if}} id="previous" href="?p={{n}}">❮</a>
+        {{/paginate}}
+       
+        {{#paginate pagination type="next"}}
+          <input type="hidden" value="&p={{n}}" id="nextN" name="">
+          <a {{#if disabled}}class="disabled"{{/if}} id="next" href="?p={{n}}">❯</a>
+        {{/paginate}}
+      </div>
+    </div>
+  </div>
+
+  <div class="rows">
+    <div class="col-md-offset-1 col-md-10">
+      <div class="table-responsive">
+        <table class="table">
+          <thead>
+            <tr>
+              <th class="col-md-6">Title</th>
+              <th class="col-md-2">Scheduled Date</th>
+              <th class="col-md-1">Start Time</th>
+              <th class="col-md-1">End Time</th>
+              <th class="col-md-2"></th>
+            </tr>
+          </thead>
+          <tbody>
+            {{#each thesisList}}
+              <tr>
+                <td class="hidden tableScheduleId">{{this.schedule_id}}</td>
+                <td class="hidden tableThesisId">{{this.thesis_id}}</td>
+                <td class=" tableTitle">{{this.title}}</td>
+                <td class=" tableDate">{{#if this.scheduled_date}}{{moment date=this.scheduled_date format="YYYY-MM-DD" }}{{/if}}</td>
+                <td class=" tableStartTime">{{this.start_time}}</td>
+                <td class=" tableEndTime">{{this.end_time}}</td>
+                <td><button class="btn btn-info setSchedule" data-toggle="modal" data-target="#exampleModal">Set schedule</button></td>
+              </tr>
+            {{/each}}
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+  </div>
+
+
+</div>
+
+
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <form action="/faculty/schedules" method="post">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Set Schedule</h5>
+        </div>
+        <div class="modal-body">
+          <input type="hidden" name="thesisId" id="modalThesisId">
+          <input type="hidden" name="scheduleId" id="modalScheduleId">
+          <div class="form-inline" style="margin-bottom: 10px">
+            <label>Title: </label>
+            <input type="text" class="form-control" name="title" id="modalTitle" disabled="" style="background-color: white; border: 0px solid black; text-decoration:none;
+            text-shadow:0px 1px 0px #ffffff;-moz-box-shadow:inset 0px 1px 0px 0px #ffffff;
+            -webkit-box-shadow:inset 0px 1px 0px 0px #ffffff;
+            box-shadow:inset 0px 1px 0px 0px #ffffff;
+            background-color:transparent;">
+          </div>
+          <div class="form-inline" style="margin-bottom: 10px">
+            <label>Date: </label>
+            <input type="date" class="form-control" name="date" id="modalDate" required="">
+          </div>
+          <div class="form-inline" style="margin-bottom: 10px">
+            <label>Start Time: </label>
+            <input type="time" class="form-control" name="startTime" id="modalStartTime" required="">
+          </div>
+          <div class="form-inline" style="margin-bottom: 10px">
+            <label>End Time: </label>
+            <input type="time" class="form-control" name="endTime" id="modalEndTime" required="">
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          <button type="submit" class="btn btn-primary" name="updateSchedule" value="updateSchedule">Save changes</button>
+        </div>
+
+      </form>
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+<input type="hidden" name="" id="yearSelected" value="{{yearSelected}}">
+
+<script type="text/javascript">
+  $(document).ready(function(){
+    $("#year").val($("#yearSelected").val());
+
+    $(".setSchedule").click(function(){
+      document.getElementById("modalThesisId").value = $(this).closest("tr").find(".tableThesisId").text();
+      document.getElementById("modalScheduleId").value = $(this).closest("tr").find(".tableScheduleId").text();
+      document.getElementById("modalTitle").value = $(this).closest("tr").find(".tableTitle").text();
+      document.getElementById("modalDate").value = $(this).closest("tr").find(".tableDate").text();
+      document.getElementById("modalStartTime").value = $(this).closest("tr").find(".tableStartTime").text();
+      document.getElementById("modalEndTime").value = $(this).closest("tr").find(".tableEndTime").text();
+    });
+
+  });
+</script>
