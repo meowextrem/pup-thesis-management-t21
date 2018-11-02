@@ -1,16 +1,13 @@
 <div class="container">
   <div class="row">
     <div class="col-md-8 committee-left-panel">
+	<div class="box">
+	  <div class="box-header">
       <h3>Commitee Members</h3>
-      <hr  />
-      <div>
-        {{!-- <select class="dropdown">
-          <option>2018</option>
-          <option>2018</option>
-          <option>2018</option>
-        </select> --}}
-      </div>
-      <div class="table-responsive">
+	  </div>
+      <div class="box-body">
+      
+	  <div class="table-responsive">
         <table class="table">
           <thead>
             <tr>
@@ -34,13 +31,19 @@
           </tbody>
         </table>
       </div>
+	  </div>
+	  
     </div>
+	</div>
     <div class="col-md-4 committee-right-panel">
+	<div class="box">
+	  <div class="box-header">
       <div class="panel">
         <div class="panel-heading">
           <h3>Add committee member</h3>
         </div>
-        <hr />
+         </div>
+		 <div class="box-body">
         {{#if error}}
           <div class="alert alert-danger">
             <p>{{error}}</p>
@@ -69,8 +72,11 @@
             </div>
           </form>
         </div>
+		 </div>
       </div>
+	  </div>
     </div>
+  </div>
   </div>
 </div>
 
