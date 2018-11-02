@@ -14,6 +14,8 @@ const pool = new Pool({
       // port: 5432
 })
 
+// heroku pg:psql postgresql-metric-47925 --app pup-thesis-management-t21
+
 pool.connect().then(function() {
 	console.log('connected to database')
 }).catch(e => {
