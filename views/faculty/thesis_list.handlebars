@@ -1,6 +1,9 @@
 <div class="container">
+<br>
   <div class="rows">
     <div class="col-md-5">
+	<div class="box">
+		<div class="box-body">
       <form action="/faculty/thesis" method="POST">
         <div class="form-inline">
           <label>Search by Title: </label>
@@ -9,11 +12,17 @@
           <input type="submit" name="clearSearch" value="Clear Search">
         </div>
       </form>
+	  </div>
     </div>
+	</div>
   </div>
+  
+  
   <div class="rows">
     <div class="col-md-12">
-      <div>
+      <div class="box">
+	  <div class="box-header">
+	  <div class="pull-left">
         <div class="pagination" style="font-size: 1.3em;">
           
           {{#paginate pagination type="previous"}}
@@ -28,7 +37,8 @@
          
         </div>
       </div>
-
+	  </div>
+	  <div class="box-body">
       <table class="table">
         <thead>
           <tr>
@@ -53,8 +63,8 @@
           {{/each}}
         </tbody>
       </table>
-
-
+</div>
+ </div>
     </div>
   </div>
 
